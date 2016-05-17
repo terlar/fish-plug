@@ -1,11 +1,9 @@
-function plug --description 'Plugin manager for fish'
+function plug -a cmd --description 'Plugin manager for fish'
     set -l ver '0.1.0'
-    set -l cmd list
 
-    if test (count $argv) -gt 0
-        set cmd $argv[1]
-        set -e argv[1]
-    end
+    set -e argv[1]
+    test -z $cmd
+    and set cmd list
 
     function plug:help
         echo 'Usage: plug COMMAND [ARGS]...'
@@ -29,24 +27,23 @@ function plug --description 'Plugin manager for fish'
         end
     end
 
-    function plug:update
-        if test (count $argv) -eq 0
+    function plug:update -a plugin
+        if test -z $plugin
             for i in $plug_path/*
-                set -l name (string replace $plug_path/ '' "$i")
+                set -l plugin (string replace $plug_path/ '' "$i")
                 pushd "$i"
                 git pull
                 popd
-                echo "plug: updated '$name'"
+                echo "plug: updated '$plugin'"
             end
         else
-            set -l name $argv
-            if test -d "$plug_path/$name"
-                pushd "$plug_path/$name"
+            if test -d "$plug_path/$plugin"
+                pushd "$plug_path/$plugin"
                 git pull
                 popd
-                echo "plug: updated '$name'"
+                echo "plug: updated '$plugin'"
             else
-                echo "plug: unknown plugin '$name'"
+                echo "plug: unknown plugin '$plugin'"
                 return 1
             end
         end
@@ -54,22 +51,22 @@ function plug --description 'Plugin manager for fish'
         return 0
     end
 
-    function plug:install
-        set -l parts (string split '/' $argv)
-        set -l name (string replace -r '.git$' '' $parts[-1])
-        set -l target_path "$plug_path/$name"
+    function plug:install -a repo
+        set -l parts (string split '/' $repo)
+        set -l plugin (string replace -r '.git$' '' $parts[-1])
+        set -l target_path "$plug_path/$plugin"
 
         if test -d "$target_path"
             return
         end
 
-        switch $argv
+        switch $repo
             case 'http://*' 'https://*' '*@*:*.git'
-                git clone "$argv" "$target_path"
+                git clone "$repo" "$target_path"
             case '*/*'
-                git clone "https://github.com/$argv.git" "$target_path"
+                git clone "https://github.com/$repo.git" "$target_path"
             case '*'
-                echo "plug: unknown repository '$argv'"
+                echo "plug: unknown repository '$plugin'"
                 return 1
         end
 
@@ -85,23 +82,23 @@ function plug --description 'Plugin manager for fish'
             ln -s $i "$plug_config_path"/.
         end
 
-        echo "plug: installed '$name'"
+        echo "plug: installed '$plugin'"
     end
 
-    function plug:remove
-        set -l name $argv
-        set -l target_path "$plug_path/$name"
+    function plug:remove -a plugin
+        set -l target_path "$plug_path/$plugin"
 
         if not test -d "$target_path"
-            echo "plug: unknown plugin '$name'"
+            echo "plug: unknown plugin '$plugin'"
             return 1
         end
 
         rm -rf "$target_path"
         find -L "$plug_function_path" -type l -delete
         find -L "$plug_complete_path" -type l -delete
+        find -L "$plug_config_path" -type l -delete
 
-        echo "plug: removed '$name'"
+        echo "plug: removed '$plugin'"
         return 0
     end
 
