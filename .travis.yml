@@ -1,0 +1,17 @@
+sudo: required
+
+services:
+  - docker
+
+env:
+  - FISH_REPO=nightly:/master
+
+before_install:  
+  - sudo apt-get update
+  - sudo apt-get install -o Dpkg::Options::="--force-confold" -y --force-yes docker-engine
+
+install:
+  - docker build --build-arg=fish_repo="$FISH_REPO" -t fish-plug .
+
+script:
+  - docker run --rm -it fish-plug make test

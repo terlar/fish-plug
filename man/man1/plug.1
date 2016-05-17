@@ -1,0 +1,63 @@
+.TH PLUG 1 "2016-05-17" "0\&.1\&.0" "fish"
+.SH NAME
+plug \- a simple plugin manager for fish
+.SH SYNOPSIS
+.B plug
+.RI [\| plugin \||\| url \|]
+.\" Run a subcommand
+.br
+.B plug
+.RI [\| command
+.IR args \|]
+.\" --help
+.br
+.B plug
+.RB [\| \-h \||\| \-\-help \|]
+.\" The subcommand update
+.br
+.B plug
+.B update
+.RI [\| plugin \|]
+.\" The subcommand install
+.br
+.B plug
+.B install
+.I plugin
+.\" The subcommand remove
+.br
+.B plug
+.B remove
+.I plugin
+.SH DESCRIPTION
+.B plug
+is a simple plugin manager for fish.
+.SH EXAMPLES
+.TP \w'plug\ 'u
+.B plug list
+List installed plugins.
+This is a plain output that could be used for scripting.
+.TP
+.B plug update
+Update all the installed plugins.
+.TP
+.BI plug\ update \ plugin
+Update the provided
+.IR plugin .
+.TP
+.BI plug\ install \ plugin
+Install the provided
+.I plugin
+to the system.
+This can either be a github username/repo or a full
+.IR URL .
+.TP
+.BI plug\ remove \ plugin
+Remove the provided
+.IR plugin .
+.TP
+.B plug version
+Display the current version.
+.TP
+.B plug help
+Display the help information.
+.TP
