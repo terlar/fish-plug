@@ -9,16 +9,18 @@ function plug -a cmd --description 'Plugin manager for fish'
         echo 'Usage: plug COMMAND [ARGS]...'
         echo
         echo 'Options:'
-        echo '  -h, --help  Display the help message'
+        echo '  -h, --help              Display the help message'
+        echo '  -v, --version           Display the version'
         echo
         echo 'Commands:'
         echo '  list                    List installed plugins'
+        echo '  ls                      List installed plugins'
         echo '  update [<plugin>]       Update installed plugins'
         echo '  install <plugin>|<url>  Install plugin'
         echo '  remove <plugin>         Remove installed plugin'
-        echo '  help                    Display the help message'
-        echo '  ls                      List installed plugins'
         echo '  rm <plugin>             Remove installed plugin'
+        echo '  help                    Display the help message'
+        echo '  version                 Display the version'
     end
 
     function plug:list

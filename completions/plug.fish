@@ -42,3 +42,6 @@ complete -f -c plug -n '__fish_plug_needs_command' -a '(__plug_commands)'
 complete -f -c plug -n '__fish_plug_using_command rm' -a '(plug ls)' -d 'Plugin'
 complete -f -c plug -n '__fish_plug_using_command remove' -a '(plug ls)' -d 'Plugin'
 complete -f -c plug -n '__fish_plug_using_command update' -a '(plug ls)' -d 'Plugin'
+
+complete -f -c plug -n '__fish_plug_needs_command' -l 'version' -s 'v' -d 'Display the version'
+complete -f -c plug -n '__fish_plug_needs_command' -l 'help' -s 'h' -d 'Display the help message'

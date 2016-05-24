@@ -42,6 +42,14 @@ function suite_plug
         assert_equal (plug list) "$output"
     end
 
+    function test_version
+        for arg in version --version -v
+            set output (plug $arg)
+            assert_equal 0 $status
+            assert (string match -r '\d+.\d+' "$output")
+        end
+    end
+
     function test_help
         set expected (plug help)
 
