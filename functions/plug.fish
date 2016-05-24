@@ -1,5 +1,5 @@
 function plug -a cmd --description 'Plugin manager for fish'
-    set -l ver '0.1.0'
+    set -l ver '0.1.1'
 
     set -e argv[1]
     test -z $cmd
