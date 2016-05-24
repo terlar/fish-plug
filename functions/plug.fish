@@ -78,7 +78,7 @@ function plug -a cmd --description 'Plugin manager for fish'
             ln -s $i "$plug_complete_path"/.
         end
 
-        for i in "$target_path/init.d"/*.fish
+        for i in "$target_path/conf.d"/*.fish
             ln -s $i "$plug_config_path"/.
         end
 
