@@ -36,7 +36,7 @@ Get help:
 
 ```fish
 $ plug help
-...
+```
 
 List installed plugins:
 
