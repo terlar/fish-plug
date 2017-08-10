@@ -16,7 +16,7 @@ There is no specific configuration except paths. They are configured
 through variables. By default those variables will be universal. The
 paths listed below are the defaults.
 
-````fish
+```fish
 # Where plug will clone repos:
 $ set plug_path $HOME/.config/fish/plug
 
@@ -37,7 +37,6 @@ Get help:
 ```fish
 $ plug help
 ...
-```
 
 List installed plugins:
 
